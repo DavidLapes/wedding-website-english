@@ -100,12 +100,12 @@ class App extends Component {
                         <img src="img/rsvp-flower.png" className="parallax" alt="flower"/>
                     </div>
                     <div className="col-sm-12 col-md-8 align-self-center">
-                        <h1 className="title">Účast</h1>
+                        <h1 className="title">Attendance</h1>
                         <h6 className="text-uppercase font-weight-bold mb-1">
-                            Zúčastníš se?
+                            Will you attend?
                         </h6>
                         <h6>
-                            Prosím vyplň za každou osobu, která je pozvána, zvlášť.<br/>V případě problémů s vyplněním nám zavolejte.
+                            Please fill every person, who is invited, separately.<br/>In case of troubles, please reach out to us by phone or email.
                         </h6>
                         <div id="rsvp-form">
                             <div className="row">
