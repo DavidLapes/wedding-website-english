@@ -2,7 +2,7 @@ import Swal from "sweetalert2";
 
 export function showErrorPopup(message) {
     Swal.fire({
-        title: "Error!",
+        title: "Chyba!",
         text: message,
         icon: "error",
         confirmButtonText: "Cool"
@@ -11,7 +11,7 @@ export function showErrorPopup(message) {
 
 export function showSuccessPopup(message) {
     Swal.fire({
-        title: "Success!",
+        title: "Úspěch!",
         text: message,
         icon: "success",
         confirmButtonText: "Cool"

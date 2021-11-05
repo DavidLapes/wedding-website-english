@@ -7,17 +7,16 @@ import {submitRSVP} from "./services/actions/guests/submitRSVP";
 class App extends Component {
 
     state = {
-        state:              null,
-        city:               null,
-        street:             null,
-        orientation_number: null,
-        descriptive_number: null,
-        postal_code:        null,
-        accommodation:      null,
-        email:              null,
-        phone:              null,
-        guest_id:           null,
-        guests:             []
+        street:        null,
+        city:          null,
+        postal_code:   null,
+        state:         null,
+        accommodation: null,
+        email:         null,
+        phone:         null,
+        guest_id:      null,
+        note:          null,
+        guests:        []
     }
 
     componentDidMount() {
@@ -45,51 +44,42 @@ class App extends Component {
 
     handleAccommodation = (e) => {
         this.setState({
-            [e.target.id]: e.target.checked
+            accommodation: e.value
         })
     };
 
     handleNameChange = (e) => {
         this.setState({
             guest_id: e.id
-        });
+        })
     };
 
     formatOptions = (data) => {
         return data.map(x => {
-            console.log(x)
             return {
                 id: x.id,
                 value: x.id,
                 label: x.full_name
             }
-        });
+        })
     }
 
     handleSubmit = () => {
-        console.log("Submit!");
-        console.log(this.state)
-        //TODO: Submit
-        //TODO: Validation of input fields
-        //TODO: Response messages
-        //TODO: Localization of default CZECH
-        //TODO: Load guests to Select and use IDs
-        /*this.props.dispatch(
+        this.props.dispatch(
             submitRSVP(
                 this.state.guest_id,
                 {
-                    state: this.state.state,
-                    city: this.state.city,
                     street: this.state.street,
-                    orientation_number: this.state.orientation_number,
-                    descriptive_number: this.state.descriptive_number,
+                    city: this.state.city,
                     postal_code: this.state.postal_code,
+                    state: this.state.state,
                     accommodation: this.state.accommodation,
                     email: this.state.email,
-                    phone: this.state.email
+                    phone: this.state.phone,
+                    note: this.state.note
                 }
             )
-        );*/
+        )
     };
 
     render() {
@@ -100,7 +90,7 @@ class App extends Component {
                         <img src="img/rsvp-flower.png" className="parallax" alt="flower"/>
                     </div>
                     <div className="col-sm-12 col-md-8 align-self-center">
-                        <h1 className="title">Attendance</h1>
+                        <h1 className="title">RSVP</h1>
                         <h6 className="text-uppercase font-weight-bold mb-1">
                             Will you attend?
                         </h6>
@@ -116,14 +106,12 @@ class App extends Component {
                                                 id="guest_id"
                                                 placeholder="Your name"
                                                 onChange={this.handleNameChange}
-                                            //TODO: Default value (localization)
-                                            //TODO: Fix React i18n localization
                                         />
                                     </div>
                                     <div className="form-group">
                                         <Select className="form-control"
                                                 id="accommodation"
-                                                placeholder="Will you want an accommodation?"
+                                                placeholder="Will you want accommodation?"
                                                 options={[
                                                     {
                                                         id: 1,
@@ -136,33 +124,124 @@ class App extends Component {
                                                         label: "No"
                                                     }
                                                 ]}
-                                                onChange={this.handleNameChange}
+                                                onChange={this.handleAccommodation}
                                         />
                                     </div>
                                     <div className="form-group">
-                                        <label className="control-label" htmlFor="inputAddress"
-                                            //TODO: Google Address
-                                        >
-                                            Your address (where should we send the invitation?)
+                                        <label className="control-label">
+                                            <b>Address (where should we send invitation?)</b>
                                         </label>
-                                        <input type="text" className="form-control" id="inputAddress" required onChange={this.handleChange}/>
+                                        <input type="text"
+                                               className="form-control"
+                                               style={{
+                                                   borderStyle: "none",
+                                                   backgroundColor: "transparent"
+                                               }}
+                                               readOnly/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label className="control-label" htmlFor="street">
+                                            Street
+                                        </label>
+                                        <input type="text"
+                                               className="form-control"
+                                               id="street"
+                                               required
+                                               onChange={this.handleChange}
+                                               value={this.state.street}/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label className="control-label" htmlFor="city">
+                                            City
+                                        </label>
+                                        <input type="text"
+                                               className="form-control"
+                                               id="city"
+                                               required
+                                               onChange={this.handleChange}
+                                               value={this.state.city}/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label className="control-label" htmlFor="postal_code">
+                                            Postal Code
+                                        </label>
+                                        <input type="text"
+                                               className="form-control"
+                                               id="postal_code"
+                                               required
+                                               onChange={this.handleChange}
+                                               value={this.state.postal_code}/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label className="control-label" htmlFor="state">
+                                            Country
+                                        </label>
+                                        <input type="text"
+                                               className="form-control"
+                                               id="state"
+                                               required
+                                               onChange={this.handleChange}
+                                               value={this.state.state}/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label className="control-label">
+                                            <b>How can we contact you?</b>
+                                        </label>
+                                        <input type="text"
+                                               className="form-control"
+                                               style={{
+                                                   borderStyle: "none",
+                                                   backgroundColor: "transparent"
+                                               }}
+                                               readOnly/>
                                     </div>
                                     <div className="form-group">
                                         <label className="control-label" htmlFor="inputEmail">
                                             Your e-mail (optional)
                                         </label>
-                                        <input type="text" className="form-control" id="inputEmail" onChange={this.handleChange}/>
+                                        <input type="text"
+                                               className="form-control"
+                                               id="email"
+                                               onChange={this.handleChange}
+                                               value={this.state.email}/>
                                     </div>
                                     <div className="form-group">
-                                        <label data-localize="rsvp.form.phone" className="control-label" htmlFor="inputPhoneNumber">
+                                        <label className="control-label" htmlFor="phone">
                                             Your phone
                                         </label>
-                                        <input type="text" className="form-control" id="inputPhoneNumber" required onChange={this.handleChange}/>
+                                        <input type="text"
+                                               className="form-control"
+                                               id="phone"
+                                               required
+                                               onChange={this.handleChange}
+                                               value={this.state.phone}/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label className="control-label">
+                                            <b>Would you like to add something?</b>
+                                        </label>
+                                        <input type="text"
+                                               className="form-control"
+                                               style={{
+                                                   borderStyle: "none",
+                                                   backgroundColor: "transparent"
+                                               }}
+                                               readOnly/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label className="control-label" htmlFor="note">
+                                            Note
+                                        </label>
+                                        <input type="text"
+                                               className="form-control"
+                                               id="note"
+                                               required
+                                               onChange={this.handleChange}
+                                               value={this.state.note}/>
                                     </div>
                                 </div>
                                 <div className="col-md-4 align-self-end">
-                                    <button data-localize="rsvp.form.button"
-                                            className="btn btn-outline-dark rounded-0 px-3 py-1 font-weight-bold"
+                                    <button className="btn btn-outline-dark rounded-0 px-3 py-1 font-weight-bold"
                                             onClick={this.handleSubmit}
                                     >
                                         Submit
@@ -171,7 +250,7 @@ class App extends Component {
                             </div>
                             <div className="row">
                                 <div className="col">
-                                    <div className="success-msg"></div>
+                                    <div className="success-msg"/>
                                 </div>
                             </div>
                         </div>
