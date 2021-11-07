@@ -10,7 +10,7 @@ export const SUBMIT_RSVP_ERROR = "SUBMIT_RSVP_ERROR";
 export const submitRSVP = (id, rsvp) => (dispatch, getState) => {
     if(canCreateRSVP(getState())) {
         dispatch(submitRSVPRequest());
-        return axios.post(GUEST_URL + "/" + id + DYNAMIC_RSVP_URL, rsvp)
+        return axios.post(GUEST_URL + "/" + id + DYNAMIC_RSVP_URL, {...rsvp, language: "english"})
             .then(json => {
                 dispatch(submitRSVPSuccess(json.data));
                 dispatch(fetchGuests());
