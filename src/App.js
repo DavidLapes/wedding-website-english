@@ -197,7 +197,7 @@ class App extends Component {
                                     </div>
                                     <div className="form-group">
                                         <label className="control-label" htmlFor="inputEmail">
-                                            Your e-mail (optional)
+                                            Your e-mail (recommended)
                                         </label>
                                         <input type="text"
                                                className="form-control"
